@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Форма для проверки високосного года</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Форма для проверки високосного года</h1>
+        <form action="ajax.php" method="POST" id="formCheckYear">
+            Введите год:
+            <input type="text" name="year" id="year">
+            <button type="submit" id="checkYear">Проверить</button>
+        </form>
+        <script type="text/javascript">
+            document.getElementById('formCheckYear').addEventListener(
+                'submit',
+                function(event) {
+                    event.preventDefault();
+
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                           alert(this.responseText);
+                        }
+                    };
+                    xhttp.open("POST", "ajax.php", true);
+                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                    var year = document.getElementById('year').value;
+
+                    xhttp.send('year='+year);
+                }
+            );
+        </script>
+    </body>
+</html>
